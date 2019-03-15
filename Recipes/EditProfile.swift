@@ -92,7 +92,7 @@ func createKeyboardToolbar() {
 // MARK: SHOW USER DETAILS
 func showUserDetails() {
     fullnameTxt.text = "\(userObj[USER_FULLNAME]!)"
-    if userObj[USER_JOB] != nil { occupationTxt.text = "\(userObj[USER_JOB]!)"
+    if userObj[USER_JOB] != nil { occupationTxt.text = "120.0lbs" //"\(userObj[USER_JOB]!)"
     } else { occupationTxt.text = nil }
     if userObj[USER_ABOUTME] != nil { aboutMeTxt.text = "\(userObj[USER_ABOUTME]!)"
     } else { aboutMeTxt.text = nil }

@@ -51,12 +51,14 @@ func numberOfSections(in tableView: UITableView) -> Int {
     return 1
 }
 func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return shoppingArray.count
+    //return shoppingArray.count
+    return 1
 }
 func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "ShoppingCell", for: indexPath) as! ShoppingCell
         
-    cell.itemLabel.text = "\(shoppingArray[indexPath.row])"
+    //cell.itemLabel.text = "\(shoppingArray[indexPath.row])"
+    cell.itemLabel.text = "Under Construction"
     
 return cell
 }

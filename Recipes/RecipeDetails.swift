@@ -172,10 +172,13 @@ func showRecipeDetails() {
             self.aboutReceipeLabel.text = "\(self.recipeObj[RECIPES_ABOUT]!)"
             self.difficultyLabel.text = "Difficulty: \(self.recipeObj[RECIPES_DIFFICULTY]!)"
             
-            self.cookingLabel.text = "Cooking:\n\(self.recipeObj[RECIPES_COOKING]!)"
-            self.bakingLabel.text = "Baking:\n\(self.recipeObj[RECIPES_BAKING]!)"
-            self.restingLabel.text = "Resting:\n\(self.recipeObj[RECIPES_RESTING]!)"
+//            self.cookingLabel.text = "Cooking:\n\(self.recipeObj[RECIPES_COOKING]!)"
+//            self.bakingLabel.text = "Baking:\n\(self.recipeObj[RECIPES_BAKING]!)"
+//            self.restingLabel.text = "Resting:\n\(self.recipeObj[RECIPES_RESTING]!)"
 
+            self.cookingLabel.text = "Carbs:\n 80grams"
+            self.bakingLabel.text = "Protein:\n 180grams"
+            self.restingLabel.text = "Fat:\n 80grams"
             // Get video
 //            if self.recipeObj[RECIPES_YOUTUBE] != nil {
 //                if "\(self.recipeObj[RECIPES_YOUTUBE]!)" != "" {
