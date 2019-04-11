@@ -202,32 +202,8 @@ func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:
             cell.commentsLabel.text = comments.abbreviated
         } else { cell.commentsLabel.text = "0" }
         
-        
-        // Get Cover image
-//        let imageFile = recipesClass[RECIPES_COVER] as? PFFile
-//        imageFile?.getDataInBackground(block: { (data, error) -> Void in
-//            if error == nil {
-//                if let imageData = data {
-//                    cell.coverImage.image = UIImage(data: imageData)
-//
-//
-//        }}})
+       // let meals = UICollectionView(frame:self.bounds)
         cell.coverImage.image = UIImage(named: recipesClass["pictrue"] as! String)
-    
-//        // Get User's Avatar image
-//        cell.avatarOutlet.setBackgroundImage(UIImage(named: "logo"), for: .normal)
-//        let avatarImage = userPointer[USER_AVATAR] as? PFFile
-//        avatarImage?.getDataInBackground(block: { (data, error) -> Void in
-//            if error == nil {
-//                if let imageData = data {
-//                    cell.avatarOutlet.setBackgroundImage(UIImage(data: imageData), for: .normal)
-//        }}})
-//        cell.avatarOutlet.layer.cornerRadius = cell.avatarOutlet.bounds.size.width/2
-//
-//
-//        cell.fullNameLabel.text = "\(userPointer[USER_FULLNAME]!)"
-    
-  
         
         // Assign a tag to buttons
         cell.likeOutlet.tag = indexPath.row

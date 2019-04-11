@@ -197,7 +197,7 @@ func showRecipeDetails() {
 //    
             // Get Ingredients and make an array (for your Shopping List)
             self.ingredientsTxt.text = "\(self.recipeObj[RECIPES_INGREDIENTS]!)"
-            self.ingredientsArray = self.ingredientsTxt.text.components(separatedBy: "\n")
+            self.ingredientsArray = [self.titleLabel.text as! String]
     
             // Get Preparstion Steps
             self.preparationTxt.text = "\(self.recipeObj[RECIPES_PREPARATION]!)"

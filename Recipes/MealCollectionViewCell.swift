@@ -15,10 +15,6 @@ class MealCollectionViewCell: UICollectionViewCell
 {
     @IBOutlet weak var featuredImageView:UIImageView!
     @IBOutlet weak var mealTitleLabel:UILabel!
-    @IBOutlet weak var categoryLabel: UILabel!
-    @IBOutlet weak var likesLabel: UILabel!
-    @IBOutlet weak var likeOutlet: UIButton!
-    @IBOutlet weak var commentsLabel: UILabel!
     
     var meal : Meal! {
         didSet {
