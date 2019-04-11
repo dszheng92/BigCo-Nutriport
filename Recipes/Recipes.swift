@@ -89,10 +89,10 @@ override func viewDidLoad() {
     // Set cell size based on current device
     if UIDevice.current.userInterfaceIdiom == .phone {
         // iPhone
-        cellSize = CGSize(width: view.frame.size.width - 20, height: 200)
+        cellSize = CGSize(width: view.frame.size.width - 20, height: 160)
     } else  {
         // iPad
-        cellSize = CGSize(width: view.frame.size.width - 20, height: 200)
+        cellSize = CGSize(width: view.frame.size.width - 20, height: 160)
     }
     
     // Init ad banners
@@ -127,7 +127,9 @@ func queryRecipes(_ searchText:String) {
     query.findObjectsInBackground { (objects, error)-> Void in
         if error == nil {
             self.recipesArray = objects!
-            
+            while (self.recipesArray.count > 4) {
+                self.recipesArray.removeLast()
+            }
             
             self.recipesArray[0][RECIPES_TITLE] = "Stuffed Cucumber"
             self.recipesArray[0]["pictrue"] = "cucumber.jpg"
@@ -146,17 +148,6 @@ func queryRecipes(_ searchText:String) {
             self.recipesArray[3][RECIPES_TITLE] = "Baked Salmon with Chimichurri Sauce"
             self.recipesArray[3]["pictrue"] = "salmon.jpg"
             self.recipesArray[3][RECIPES_CATEGORY] = "Dinner"
-
-            
-            self.recipesArray[4]["pictrue"] = "salmon.jpg"
-            self.recipesArray[5]["pictrue"] = "salmon.jpg"
-            self.recipesArray[6]["pictrue"] = "salmon.jpg"
-            self.recipesArray[7]["pictrue"] = "salmon.jpg"
-            self.recipesArray[8]["pictrue"] = "salmon.jpg"
-            self.recipesArray[9]["pictrue"] = "salmon.jpg"
-            
-            
-            
             
             
             // Reload CollView

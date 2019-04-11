@@ -14,8 +14,8 @@ import Parse
 
 
 // IMPORTANT: Replace the red string below accordingly to the new name you'll give to this app
-let APP_NAME = "Recipes"
-//let APP_NAME = "Nutriport"
+//let APP_NAME = "Recipes"
+let APP_NAME = "Nutriport"
 
 
 // PARSE KEYS -> Replace these red keys with your own ones from your Parse app on back4app.com
@@ -66,7 +66,8 @@ extension UIViewController {
         hudView.clipsToBounds = true
         hudView.layer.cornerRadius = hudView.bounds.size.width/2
         
-        let imagesArr = ["h0", "h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8", "h9", "h10"]
+       // let imagesArr = ["h0", "h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8", "h9", "h10"]
+        let imagesArr = ["h0", "h1", "h2", "h3"]
         var images:[UIImage] = []
         for i in 0..<imagesArr.count {
             images.append(UIImage(named: imagesArr[i])!)

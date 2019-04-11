@@ -22,5 +22,19 @@ class RecipesCell: UICollectionViewCell {
 
  //   @IBOutlet weak var avatarOutlet: UIButton!
  //   @IBOutlet weak var fullNameLabel: UILabel!
+    var meal : Meal! {
+        didSet {
+            self.updateUI()
+        }
+    }
     
+    func updateUI() {
+        if let meal = meal {
+            coverImage.image = meal.featuredImage
+            titleLabel.text = meal.title
+        } else {
+            coverImage.image = nil
+            titleLabel.text = nil
+        }
+    }
 }
