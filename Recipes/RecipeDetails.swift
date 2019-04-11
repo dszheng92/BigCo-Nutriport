@@ -247,7 +247,7 @@ func showRecipeDetails() {
                 likesClass[LIKES_RECIPE_LIKED] = self.recipeObj
                 likesClass.saveInBackground(block: { (success, error) -> Void in
                     if error == nil {
-                        self.simpleAlert("You've liked this recipe and saved into your Account!")
+                        self.simpleAlert("You've liked this meal and saved into your Account!")
             
                         // Get User Pointer
                         let userPointer = self.recipeObj[RECIPES_USER_POINTER] as! PFUser

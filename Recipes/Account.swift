@@ -212,13 +212,13 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
     cell.titleLabel.text = "\(recipesClass[RECIPES_TITLE]!)"
     
     // Get image
-    let imageFile = recipesClass[RECIPES_COVER] as? PFFile
-    imageFile?.getDataInBackground { (imageData, error) -> Void in
-        if error == nil {
-            if let imageData = imageData {
-                cell.coverThumbnail.image = UIImage(data:imageData)
-    } } }
-    
+//    let imageFile = recipesClass[RECIPES_COVER] as? PFFile
+//    imageFile?.getDataInBackground { (imageData, error) -> Void in
+//        if error == nil {
+//            if let imageData = imageData {
+//                cell.coverThumbnail.image = UIImage(data:imageData)
+//    } } }
+    cell.coverThumbnail.image = UIImage(named: recipesClass["pictrue"] as! String)
     cell.coverThumbnail.layer.cornerRadius = 5
     
 return cell
@@ -348,28 +348,14 @@ func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:
 
                     
                     // Get Cover image
-                    let imageFile = recipePointer[RECIPES_COVER] as? PFFile
-                    imageFile?.getDataInBackground(block: { (data, error) -> Void in
-                        if error == nil {
-                            if let imageData = data {
-                                cell.coverImage.image = UIImage(data: imageData)
-                    }}})
-                
-                
-//                    // Get User's Avatar image
-//                    cell.avatarOutlet.setBackgroundImage(UIImage(named: "logo"), for: .normal)
-//                    let avatarImage = userPointer[USER_AVATAR] as? PFFile
-//                    avatarImage?.getDataInBackground(block: { (data, error) -> Void in
+//                    let imageFile = recipePointer[RECIPES_COVER] as? PFFile
+//                    imageFile?.getDataInBackground(block: { (data, error) -> Void in
 //                        if error == nil {
 //                            if let imageData = data {
-//                                cell.avatarOutlet.setBackgroundImage(UIImage(data: imageData), for: .normal)
+//                                cell.coverImage.image = UIImage(data: imageData)
 //                    }}})
-//                    cell.avatarOutlet.layer.cornerRadius = cell.avatarOutlet.bounds.size.width/2
-//
-//                    // Get user's Full Name
-//                    cell.fullNameLabel.text = "\(userPointer[USER_FULLNAME]!)"
+                    cell.coverImage.image = UIImage(named: recipePointer["pictrue"] as! String)
 
-                    
                     
                     // Assign tags
                     cell.likeOutlet.tag = indexPath.row

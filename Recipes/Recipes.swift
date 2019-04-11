@@ -300,7 +300,7 @@ func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPat
                 likesClass[LIKES_RECIPE_LIKED] = recipesClass
                 likesClass.saveInBackground(block: { (success, error) -> Void in
                     if error == nil {
-                        self.simpleAlert("You've liked this recipe and saved into your Account!")
+                        self.simpleAlert("You've liked this meal and saved into your Account!")
                         
                         
                         // Get User Pointer
@@ -308,7 +308,7 @@ func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPat
                         userPointer.fetchIfNeededInBackground(block: { (user, error) in
                             
                             // Send Push Notification
-                            let pushStr = "\(PFUser.current()![USER_FULLNAME]!) liked your \(recipesClass[RECIPES_TITLE]!) recipe!"
+                            let pushStr = "\(PFUser.current()![USER_FULLNAME]!) liked your \(recipesClass[RECIPES_TITLE]!) meal!"
                             
                             let data = [ "badge" : "Increment",
                                          "alert" : pushStr,
@@ -331,7 +331,7 @@ func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPat
                             let activityClass = PFObject(className: ACTIVITY_CLASS_NAME)
                             activityClass[ACTIVITY_CURRENT_USER] = userPointer
                             activityClass[ACTIVITY_OTHER_USER] = PFUser.current()!
-                            activityClass[ACTIVITY_TEXT] = "\(PFUser.current()![USER_FULLNAME]!) liked your \(recipesClass[RECIPES_TITLE]!) recipe"
+                            activityClass[ACTIVITY_TEXT] = "\(PFUser.current()![USER_FULLNAME]!) liked your \(recipesClass[RECIPES_TITLE]!) meal"
                             activityClass.saveInBackground()
                         })
                         
