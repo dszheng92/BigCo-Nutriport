@@ -19,11 +19,11 @@ let APP_NAME = "Nutriport"
 
 
 // PARSE KEYS -> Replace these red keys with your own ones from your Parse app on back4app.com
-let PARSE_APP_KEY = "FH5tG5ceS6VNYphhG2bCygq4jG984qIv4wsCWlbV"
-let PARSE_CLIENT_KEY = "GcIndXBrHmseaKc2b5s1nlrWuuRFWccXJcCIgw2W"
+//let PARSE_APP_KEY = "FH5tG5ceS6VNYphhG2bCygq4jG984qIv4wsCWlbV"
+//let PARSE_CLIENT_KEY = "GcIndXBrHmseaKc2b5s1nlrWuuRFWccXJcCIgw2W"
 
-//let PARSE_APP_KEY = "5KZjExpjct9eOWsAIh9aoLDCp3LpEiVqDb2BuyOK"
-//let PARSE_CLIENT_KEY = "dVuvhmlctBZpulAY8mrAziFniq9AxBvKkjVs9Bv9"
+let PARSE_APP_KEY = "5KZjExpjct9eOWsAIh9aoLDCp3LpEiVqDb2BuyOK"
+let PARSE_CLIENT_KEY = "dVuvhmlctBZpulAY8mrAziFniq9AxBvKkjVs9Bv9"
 
 // IMPORTANT: REPLACE THE RED STRING BELOW WITH THE UNIT ID YOU'VE GOT BY REGISTERING YOUR APP IN http://www.apps.admob.com
 let ADMOB_BANNER_UNIT_ID = "ca-app-pub-3940256099942544/6300978111"
@@ -32,16 +32,20 @@ let ADMOB_BANNER_UNIT_ID = "ca-app-pub-3940256099942544/6300978111"
 
 // FOOD CATEGORIES ARRAY (editable)
 let categoriesArray =  [
-    "Appetizer",
+    "Snack",
     "Breakfast",
-    "Healthy",
-    "Holidays & Events",
-    "Main Dish",
-    "Seafood",
-    "Vegetarian",
-    "Salad",
-    "Desserts",
-    "Beverage",
+    "Lunch",
+    "Dinner",
+//    "Healthy",
+//    "Holidays & Events",
+//    "Main Dish",
+//    "Seafood",
+//    "Vegetarian",
+//    "Salad",
+//    "Desserts",
+//    "Beverage",
+//    "Appetizer",
+
     
     // You can add categories here...
     // IMPORTANT: Also remember to add the proper images into the FOOD CATEGORIES folder in Assets.xcassets, naming them exactly like the red strings above!
@@ -95,13 +99,8 @@ extension UIViewController {
 
 
 
-
-
-
-
-
 /****** DO NOT EDIT THE CODE BELOW *****/
-let USER_CLASS_NAME = "_User"
+let USER_CLASS_NAME = "User"
 let USER_FULLNAME = "fullName"
 let USER_USERNAME = "username"
 let USER_AVATAR = "avatar"
@@ -138,10 +137,19 @@ let RECIPES_REPORT_MESSAGE = "reportMessage"
 let RECIPES_COMMENTS = "comments"
 let RECIPES_KEYWORDS = "keywords"
 
+// Additional Numbers
+
+
+
+
 let ACTIVITY_CLASS_NAME = "Activity"
 let ACTIVITY_CURRENT_USER = "currentUser"
 let ACTIVITY_OTHER_USER = "otherUser"
 let ACTIVITY_TEXT = "text"
+
+
+
+
 
 let COMMENTS_CLASS_NAME = "Comments"
 let COMMENTS_RECIPE_POINTER = "recipePointer"

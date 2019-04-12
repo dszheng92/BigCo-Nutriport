@@ -120,7 +120,7 @@ func queryRecipes(_ searchText:String) {
     
     print("SEARCH TEXT: \(searchText)\nCATEGORY: \(categoryStr)")
     
-    query.whereKey(RECIPES_IS_REPORTED, equalTo: false)
+    //query.whereKey(RECIPES_IS_REPORTED, equalTo: false)
     query.order(byDescending: "createdAt")
     query.findObjectsInBackground { (objects, error)-> Void in
         if error == nil {
@@ -129,22 +129,22 @@ func queryRecipes(_ searchText:String) {
                 self.recipesArray.removeLast()
             }
             
-            self.recipesArray[0][RECIPES_TITLE] = "Stuffed Cucumber"
-            self.recipesArray[0]["pictrue"] = "cucumber.jpg"
-            self.recipesArray[0][RECIPES_CATEGORY] = "Snack"
-            
-            self.recipesArray[1][RECIPES_TITLE] = "Black Bean Breakfast Burrito "
-            self.recipesArray[1]["pictrue"] = "burrito.jpg"
-            self.recipesArray[1][RECIPES_CATEGORY] = "Breakfast"
-
-            
-            self.recipesArray[2][RECIPES_TITLE] = "Vegan Buddha Bowl"
-            self.recipesArray[2]["pictrue"] = "Veggie.jpg"
-            self.recipesArray[2][RECIPES_CATEGORY] = "Lunch"
-                
-            self.recipesArray[3][RECIPES_TITLE] = "Baked Salmon with Chimichurri Sauce"
-            self.recipesArray[3]["pictrue"] = "salmon.jpg"
-            self.recipesArray[3][RECIPES_CATEGORY] = "Dinner"
+//            self.recipesArray[0][RECIPES_TITLE] = "Stuffed Cucumber"
+//            self.recipesArray[0]["pictrue"] = "cucumber.jpg"
+//            self.recipesArray[0][RECIPES_CATEGORY] = "Snack"
+//
+//            self.recipesArray[1][RECIPES_TITLE] = "Black Bean Breakfast Burrito "
+//            self.recipesArray[1]["pictrue"] = "burrito.jpg"
+//            self.recipesArray[1][RECIPES_CATEGORY] = "Breakfast"
+//
+//
+//            self.recipesArray[2][RECIPES_TITLE] = "Vegan Buddha Bowl"
+//            self.recipesArray[2]["pictrue"] = "Veggie.jpg"
+//            self.recipesArray[2][RECIPES_CATEGORY] = "Lunch"
+//
+//            self.recipesArray[3][RECIPES_TITLE] = "Baked Salmon with Chimichurri Sauce"
+//            self.recipesArray[3]["pictrue"] = "salmon.jpg"
+//            self.recipesArray[3][RECIPES_CATEGORY] = "Dinner"
             
             mealArray = self.recipesArray
             // Reload CollView
@@ -200,7 +200,14 @@ func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:
         } else { cell.commentsLabel.text = "0" }
         
        // let meals = UICollectionView(frame:self.bounds)
-        cell.coverImage.image = UIImage(named: recipesClass["pictrue"] as! String)
+        let imageFile = recipesClass[RECIPES_COVER] as? PFFile
+        imageFile?.getDataInBackground(block: { (imageData, error) in
+            if error == nil {
+                cell.coverImage.image = UIImage(data:imageData!)
+                
+                
+            }})
+        //cell.coverImage.image = UIImage(named: recipesClass["pictrue"] as! String)
         
         // Assign a tag to buttons
         cell.likeOutlet.tag = indexPath.row

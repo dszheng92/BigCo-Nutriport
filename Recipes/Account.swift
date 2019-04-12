@@ -212,13 +212,13 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
     cell.titleLabel.text = "\(recipesClass[RECIPES_TITLE]!)"
     
     // Get image
-//    let imageFile = recipesClass[RECIPES_COVER] as? PFFile
-//    imageFile?.getDataInBackground { (imageData, error) -> Void in
-//        if error == nil {
-//            if let imageData = imageData {
-//                cell.coverThumbnail.image = UIImage(data:imageData)
-//    } } }
-    cell.coverThumbnail.image = UIImage(named: recipesClass["pictrue"] as! String)
+    let imageFile = recipesClass[RECIPES_COVER] as? PFFile
+    imageFile?.getDataInBackground { (imageData, error) -> Void in
+        if error == nil {
+            if let imageData = imageData {
+                cell.coverThumbnail.image = UIImage(data:imageData)
+    } } }
+    //cell.coverThumbnail.image = UIImage(named: recipesClass["pictrue"] as! String)
     cell.coverThumbnail.layer.cornerRadius = 5
     
 return cell

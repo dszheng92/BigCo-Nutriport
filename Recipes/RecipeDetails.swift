@@ -127,14 +127,14 @@ func showRecipeDetails() {
         if error == nil {
             
             // Get cover image
-//            let imageFile = self.recipeObj[RECIPES_COVER] as? PFFile
-//            imageFile?.getDataInBackground(block: { (imageData, error) in
-//                if error == nil {
-//                    self.coverImage.image = UIImage(data:imageData!)
-//                    
-//                    
-//            }})
-            self.coverImage.image = UIImage(named: self.recipeObj["pictrue"] as! String)
+            let imageFile = self.recipeObj[RECIPES_COVER] as? PFFile
+            imageFile?.getDataInBackground(block: { (imageData, error) in
+                if error == nil {
+                    self.coverImage.image = UIImage(data:imageData!)
+                    
+                    
+            }})
+//            self.coverImage.image = UIImage(named: self.recipeObj["pictrue"] as! String)
             
     
             // Get Title and Category
