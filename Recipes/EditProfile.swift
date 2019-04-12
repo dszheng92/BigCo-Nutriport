@@ -100,12 +100,12 @@ func showUserDetails() {
     
     // Get avatar image
     avatarimage.image = UIImage(named: "logo")
-    let imageFile = userObj[USER_AVATAR] as? PFFile
-    imageFile?.getDataInBackground(block: { (imageData, error) -> Void in
-        if error == nil {
-            if let imageData = imageData {
-                self.avatarimage.image = UIImage(data:imageData)
-    } } })
+ //   let imageFile = userObj[USER_AVATAR] as? PFFile
+//    imageFile?.getDataInBackground(block: { (imageData, error) -> Void in
+//        if error == nil {
+//            if let imageData = imageData {
+//                self.avatarimage.image = UIImage(data:imageData)
+//    } } })
     
 }
     

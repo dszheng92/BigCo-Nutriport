@@ -162,11 +162,11 @@ func showRecipeDetails() {
     
             // Get avatar image
             self.avatarImage.image = UIImage(named: "logo")
-            let avatarFile = userPointer[USER_AVATAR] as? PFFile
-            avatarFile?.getDataInBackground(block: { (imageData, error) -> Void in
-                if error == nil {
-                    self.avatarImage.image = UIImage(data:imageData!)
-            }})
+//            let avatarFile = userPointer[USER_AVATAR] as? PFFile
+//            avatarFile?.getDataInBackground(block: { (imageData, error) -> Void in
+//                if error == nil {
+//                    self.avatarImage.image = UIImage(data:imageData!)
+//            }})
     
     
             self.aboutReceipeLabel.text = "\(self.recipeObj[RECIPES_ABOUT]!)"

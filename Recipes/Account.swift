@@ -143,12 +143,12 @@ func showUserDetails() {
     
     // Get avatar image
     avatarImage.image = UIImage(named: "logo")
-    let imageFile = aUser[USER_AVATAR] as? PFFile
-    imageFile?.getDataInBackground(block: { (imageData, error) -> Void in
-        if error == nil {
-            if let imageData = imageData {
-                self.avatarImage.image = UIImage(data:imageData)
-    } } })
+//    let imageFile = aUser[USER_AVATAR] as? PFFile
+//    imageFile?.getDataInBackground(block: { (imageData, error) -> Void in
+//        if error == nil {
+//            if let imageData = imageData {
+//                self.avatarImage.image = UIImage(data:imageData)
+//    } } })
     
     if aUser[USER_JOB] != nil { fullNameLabel.text = "\(aUser[USER_FULLNAME]!), \(aUser[USER_JOB]!)"
     } else { fullNameLabel.text = "\(aUser[USER_FULLNAME]!)" }

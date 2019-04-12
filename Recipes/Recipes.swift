@@ -16,8 +16,7 @@ import AudioToolbox
 // GLOBAL VARIABLES (DO NOT EDIT THEM)
 var categoryStr = String()
 var shoppingArray:[String] = []
-
-
+var mealArray = [PFObject]()
 
 class Recipes: UIViewController,
 UICollectionViewDataSource,
@@ -47,28 +46,27 @@ GADBannerViewDelegate
     
     
     
-    
-override func viewDidAppear(_ animated: Bool) {
-    
-    UIApplication.shared.applicationIconBadgeNumber = 0
-    
-    if categoryStr != "" {
-        searchBar.text = ""
-        queryRecipes(categoryStr)
+    override func viewDidAppear(_ animated: Bool) {
+        
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        
+        if categoryStr != "" {
+            searchBar.text = ""
+            queryRecipes(categoryStr)
+        }
+        print("CATEGORY: \(categoryStr)")
+        
+        // Associate the device with a user for Push Notifications
+        if PFUser.current() != nil {
+            let installation = PFInstallation.current()
+            installation?["username"] = PFUser.current()!.username
+            installation?["userID"] = PFUser.current()!.objectId!
+            installation?.saveInBackground(block: { (succ, error) in
+                if error == nil {
+                    print("PUSH REGISTERED FOR: \(PFUser.current()!.username!)")
+            }})
+        }
     }
-    print("CATEGORY: \(categoryStr)")
-    
-    // Associate the device with a user for Push Notifications
-    if PFUser.current() != nil {
-        let installation = PFInstallation.current()
-        installation?["username"] = PFUser.current()!.username
-        installation?["userID"] = PFUser.current()!.objectId!
-        installation?.saveInBackground(block: { (succ, error) in
-            if error == nil {
-                print("PUSH REGISTERED FOR: \(PFUser.current()!.username!)")
-        }})
-    }
-}
     
 override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,10 +87,10 @@ override func viewDidLoad() {
     // Set cell size based on current device
     if UIDevice.current.userInterfaceIdiom == .phone {
         // iPhone
-        cellSize = CGSize(width: view.frame.size.width - 20, height: 160)
+        cellSize = CGSize(width: view.frame.size.width - 20, height: 200)
     } else  {
         // iPad
-        cellSize = CGSize(width: view.frame.size.width - 20, height: 160)
+        cellSize = CGSize(width: view.frame.size.width - 20, height: 200)
     }
     
     // Init ad banners
@@ -143,13 +141,12 @@ func queryRecipes(_ searchText:String) {
             self.recipesArray[2][RECIPES_TITLE] = "Vegan Buddha Bowl"
             self.recipesArray[2]["pictrue"] = "Veggie.jpg"
             self.recipesArray[2][RECIPES_CATEGORY] = "Lunch"
-
                 
             self.recipesArray[3][RECIPES_TITLE] = "Baked Salmon with Chimichurri Sauce"
             self.recipesArray[3]["pictrue"] = "salmon.jpg"
             self.recipesArray[3][RECIPES_CATEGORY] = "Dinner"
             
-            
+            mealArray = self.recipesArray
             // Reload CollView
             self.recipesCollView.reloadData()
             self.hideHUD()
@@ -514,4 +511,36 @@ override func didReceiveMemoryWarning() {
         // Dispose of any resources that can be recreated.
     }
     
+}
+
+class MealCollectionViewController: UIViewController
+{
+    @IBOutlet weak var collectionView: UICollectionView!
+    var meals = mealArray
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        collectionView.dataSource = self
+    }
+}
+
+extension MealCollectionViewController : UICollectionViewDataSource
+{
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return meals.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MealCollectionViewCell", for: indexPath) as! MealCollectionViewCell
+        
+        let meal = meals[indexPath.item]
+        cell.meal = Meal(title: meal[RECIPES_TITLE] as! String,
+                         featuredImage: UIImage(named: meal["pictrue"] as! String) as! UIImage)
+        return cell
+    }
 }
