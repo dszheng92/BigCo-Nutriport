@@ -96,8 +96,6 @@ extension UIViewController {
 
 
 
-
-
 /****** DO NOT EDIT THE CODE BELOW *****/
 let USER_CLASS_NAME = "User"
 let USER_FULLNAME = "fullName"

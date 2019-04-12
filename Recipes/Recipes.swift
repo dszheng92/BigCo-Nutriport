@@ -101,39 +101,95 @@ override func viewDidLoad() {
     queryRecipes("")
 }
 
+
+
+    //0 caloroire, 2 fat, 3, carbs, 4 sugar, 5 cholestro.
+func cal_score(dish:Array<PFObject>, recommend:Array<Float>, weights:Array<Float>) -> Array<PFObject> {
+    var snack:Array<PFObject>  = []
+    var breakfast:Array<PFObject>  = []
+    var lunch:Array<PFObject>  = []
+    var dinner:Array<PFObject>  = []
+    var result:Array<PFObject>  = []
     
-    func cal_score(dish:Array<Float>, recommend:Array<Float>, weights:Array<Float>) -> Float {
+    for d in dish{
+        if d[RECIPES_CATEGORY] as! String? == "Snack"{snack.append(d)}
+        else if d[RECIPES_CATEGORY] as! String? == "Breakfast"{breakfast.append(d)}
+        else if d[RECIPES_CATEGORY] as! String? == "Lunch"{lunch.append(d)}
+        else if d[RECIPES_CATEGORY] as! String? == "Dinner"{dinner.append(d)}
+    }
+    
+    result.append(select_best(dishes:snack, recommend:recommend, weights:weights))
+    result.append(select_best(dishes:breakfast, recommend:recommend, weights:weights))
+    result.append(select_best(dishes:lunch, recommend:recommend, weights:weights))
+    result.append(select_best(dishes:dinner, recommend:recommend, weights:weights))
+    return result
+}
+    
+    //[calr, prot, fat, carb, sugar, choles, vc, ve, vb, ca, fe]
+
+func select_best(dishes:Array<PFObject>, recommend:Array<Float>, weights:Array<Float>) -> PFObject{
+    var final = [PFObject: Float]()
+    for d in dishes{
         var score:Float = 0
-        for i in 0..<dish.count{
-            if [0,2,4,5].contains(i){
-                score = score + weights[i] * max(dish[i] - recommend[i], 0)
-            }
-            else{
-                score += weights[i] * max(recommend[i] - dish[i], 0)
-            }
-        }
-        return score
+        score += weights[0] * max(d[CALORIES] as! Float - recommend[0], 0)
+        score += weights[1] * max(recommend[1] - (d[PROTEION] as! Float), 0)
+        score += weights[2] * max(d[FAT] as! Float - recommend[2], 0)
+        score += weights[3] * max(d[CARBS] as! Float - recommend[3], 0)
+        score += weights[4] * max(d[SUGAR] as! Float - recommend[4], 0)
+        score += weights[5] * max(d[CHOLESTEROL] as! Float - recommend[5], 0)
+        score += weights[6] * max(recommend[6] - (d[VC] as! Float), 0)
+        score += weights[7] * max(recommend[7] - (d[VE] as! Float), 0)
+        score += weights[8] * max(recommend[8] - (d[VB] as! Float), 0)
+        score += weights[9] * max(recommend[9] - (d[CA] as! Float), 0)
+        score += weights[10] * max(recommend[10] - (d[FE] as! Float), 0)
+        final[d] = score
     }
-    
-    
-    func get_weights(day:Int) -> Array<Float> {
-        let weights:[Float] = [1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0]
-        return weights
+    let sortedByValueDictionary = final.sorted { $0.1 < $1.1 }
+    let index = 0 // Int Value
+    return Array(sortedByValueDictionary)[index].key
+}
+
+//    let CALORIES = "calories_Kcal"
+//    let FAT = "fat_g"
+//    let CHOLESTEROL = "Cholesterol_mg"
+//    let PROTEION = "Protein_g"
+//    let VB = "VB"
+//    let CARBS = "Carbs_g"
+//    let VC = "VC"
+//    let VE = "VE"
+//    let CA = "CA"
+//    let FE = "VE"
+//    let SUGAR = "Sugar_g"
+
+
+//returen min score
+
+func get_weights(day:Int) -> Array<Float> {
+    let weights:[Float] = [1.0, 1.0, 1.0, 1.0, 1.0,1.0,1.0,1.0,1.0,1.0,1.0]
+    return weights
+}
+
+func cal_recommend(height:Float, weight:Float) -> Array<Float> {
+    let bmi:Float = weight / (height * height)
+    if bmi < 18.5{
+        return [900, 5, 25, 15, 3, 30, 30, 30, 30, 30, 30]
+    }else if bmi < 25{
+        return [800, 5, 22, 15, 3, 30, 30, 30, 30, 30, 30]
+    }else if bmi < 30{
+        return [700, 5, 20, 15, 3, 30, 30, 30, 30, 30, 30]
+    }else{
+        return [600, 5, 19, 15, 3, 30, 30, 30, 30, 30, 30]
     }
+}
+
+
+func best_dishes(){
+    let recommended:[Float] = cal_recommend(height:178, weight:165)
+    let wei = get_weights(day:1)
+    self.recipesArray = cal_score(dish:self.recipesArray, recommend:recommended, weights:wei)
+}
+
     
-    
-    func cal_recommend(height:Float, weight:Float) -> Array<Int> {
-        let bmi:Float = weight / (height * height)
-        if bmi < 18.5{
-            return [900, 5, 25, 15, 3, 30, 30, 30, 30, 30, 30]
-        }else if bmi < 25{
-            return [800, 5, 22, 15, 3, 30, 30, 30, 30, 30, 30]
-        }else if bmi < 30{
-            return [700, 5, 20, 15, 3, 30, 30, 30, 30, 30, 30]
-        }else{
-            return [600, 5, 19, 15, 3, 30, 30, 30, 30, 30, 30]
-        }
-    }
     
     
 // MARK: - QUERY RECIPES
@@ -162,10 +218,7 @@ func queryRecipes(_ searchText:String) {
 //                self.recipesArray.removeLast()
 //            }
             
-            
-            
-            
-            
+            self.best_dishes()
             
             
 //            self.recipesArray[0][RECIPES_TITLE] = "Stuffed Cucumber"
