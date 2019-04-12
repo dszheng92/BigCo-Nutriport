@@ -102,6 +102,39 @@ override func viewDidLoad() {
 }
 
     
+    func cal_score(dish:Array<Float>, recommend:Array<Float>, weights:Array<Float>) -> Float {
+        var score:Float = 0
+        for i in 0..<dish.count{
+            if [0,2,4,5].contains(i){
+                score = score + weights[i] * max(dish[i] - recommend[i], 0)
+            }
+            else{
+                score += weights[i] * max(recommend[i] - dish[i], 0)
+            }
+        }
+        return score
+    }
+    
+    
+    func get_weights(day:Int) -> Array<Float> {
+        let weights:[Float] = [1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0]
+        return weights
+    }
+    
+    
+    func cal_recommend(height:Float, weight:Float) -> Array<Int> {
+        let bmi:Float = weight / (height * height)
+        if bmi < 18.5{
+            return [900, 5, 25, 15, 3, 30, 30, 30, 30, 30, 30]
+        }else if bmi < 25{
+            return [800, 5, 22, 15, 3, 30, 30, 30, 30, 30, 30]
+        }else if bmi < 30{
+            return [700, 5, 20, 15, 3, 30, 30, 30, 30, 30, 30]
+        }else{
+            return [600, 5, 19, 15, 3, 30, 30, 30, 30, 30, 30]
+        }
+    }
+    
     
 // MARK: - QUERY RECIPES
 func queryRecipes(_ searchText:String) {
@@ -125,9 +158,15 @@ func queryRecipes(_ searchText:String) {
     query.findObjectsInBackground { (objects, error)-> Void in
         if error == nil {
             self.recipesArray = objects!
-            while (self.recipesArray.count > 4) {
-                self.recipesArray.removeLast()
-            }
+//            while (self.recipesArray.count > 4) {
+//                self.recipesArray.removeLast()
+//            }
+            
+            
+            
+            
+            
+            
             
 //            self.recipesArray[0][RECIPES_TITLE] = "Stuffed Cucumber"
 //            self.recipesArray[0]["pictrue"] = "cucumber.jpg"

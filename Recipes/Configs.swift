@@ -98,7 +98,6 @@ extension UIViewController {
 
 
 
-
 /****** DO NOT EDIT THE CODE BELOW *****/
 let USER_CLASS_NAME = "User"
 let USER_FULLNAME = "fullName"
@@ -138,6 +137,18 @@ let RECIPES_COMMENTS = "comments"
 let RECIPES_KEYWORDS = "keywords"
 
 // Additional Numbers
+
+let CALORIES = "calories_Kcal"
+let FAT = "fat_g"
+let CHOLESTEROL = "Cholesterol_mg"
+let PROTEION = "Protein_g"
+let VB = "VB"
+let CARBS = "Carbs_g"
+let VC = "VC"
+let VE = "VE"
+let CA = "CA"
+let FE = "VE"
+let SUGAR = "Sugar_g"
 
 
 
