@@ -150,7 +150,8 @@ func showUserDetails() {
 //                self.avatarImage.image = UIImage(data:imageData)
 //    } } })
     
-    if aUser[USER_JOB] != nil { fullNameLabel.text = "\(aUser[USER_FULLNAME]!), \(aUser[USER_JOB]!)"
+//    if aUser[USER_JOB] != nil { fullNameLabel.text = "\(aUser[USER_FULLNAME]!), \(aUser[USER_JOB]!)"
+    if aUser[USER_JOB] != nil { fullNameLabel.text = "\(aUser[USER_FULLNAME]!)"
     } else { fullNameLabel.text = "\(aUser[USER_FULLNAME]!)" }
     
     if aUser[USER_ABOUTME] != nil { aboutMeTxt.text = "\(aUser[USER_ABOUTME]!)"
@@ -328,8 +329,8 @@ func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:
     
         
         // THIS RECIPE HAS NOT BEEN REPORTED
-        if recipePointer[RECIPES_IS_REPORTED] as! Bool == false {
-        
+        //if recipePointer[RECIPES_IS_REPORTED] as! Bool == false {
+        if true {
             // Get User Pointer
             let userPointer = recipePointer[RECIPES_USER_POINTER] as! PFUser
         	userPointer.fetchIfNeededInBackground { (user, error) in
@@ -348,13 +349,13 @@ func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:
 
                     
                     // Get Cover image
-//                    let imageFile = recipePointer[RECIPES_COVER] as? PFFile
-//                    imageFile?.getDataInBackground(block: { (data, error) -> Void in
-//                        if error == nil {
-//                            if let imageData = data {
-//                                cell.coverImage.image = UIImage(data: imageData)
-//                    }}})
-                    cell.coverImage.image = UIImage(named: recipePointer["pictrue"] as! String)
+                    let imageFile = recipePointer[RECIPES_COVER] as? PFFile
+                    imageFile?.getDataInBackground(block: { (data, error) -> Void in
+                        if error == nil {
+                            if let imageData = data {
+                                cell.coverImage.image = UIImage(data: imageData)
+                    }}})
+                    //cell.coverImage.image = UIImage(named: recipePointer["pictrue"] as! String)
 
                     
                     // Assign tags

@@ -104,7 +104,7 @@ override func viewDidLoad() {
 
 
     //0 caloroire, 2 fat, 3, carbs, 4 sugar, 5 cholestro.
-func cal_score(dish:Array<PFObject>, recommend:Array<Float>, weights:Array<Float>) -> Array<PFObject> {
+func cal_score(dish:Array<PFObject>, recommend:Array<Double>, weights:Array<Double>) -> Array<PFObject> {
     var snack:Array<PFObject>  = []
     var breakfast:Array<PFObject>  = []
     var lunch:Array<PFObject>  = []
@@ -127,21 +127,21 @@ func cal_score(dish:Array<PFObject>, recommend:Array<Float>, weights:Array<Float
     
     //[calr, prot, fat, carb, sugar, choles, vc, ve, vb, ca, fe]
 
-func select_best(dishes:Array<PFObject>, recommend:Array<Float>, weights:Array<Float>) -> PFObject{
-    var final = [PFObject: Float]()
+func select_best(dishes:Array<PFObject>, recommend:Array<Double>, weights:Array<Double>) -> PFObject{
+    var final = [PFObject: Double]()
     for d in dishes{
-        var score:Float = 0
-        score += weights[0] * max(d[CALORIES] as! Float - recommend[0], 0)
-        score += weights[1] * max(recommend[1] - (d[PROTEION] as! Float), 0)
-        score += weights[2] * max(d[FAT] as! Float - recommend[2], 0)
-        score += weights[3] * max(d[CARBS] as! Float - recommend[3], 0)
-        score += weights[4] * max(d[SUGAR] as! Float - recommend[4], 0)
-        score += weights[5] * max(d[CHOLESTEROL] as! Float - recommend[5], 0)
-        score += weights[6] * max(recommend[6] - (d[VC] as! Float), 0)
-        score += weights[7] * max(recommend[7] - (d[VE] as! Float), 0)
-        score += weights[8] * max(recommend[8] - (d[VB] as! Float), 0)
-        score += weights[9] * max(recommend[9] - (d[CA] as! Float), 0)
-        score += weights[10] * max(recommend[10] - (d[FE] as! Float), 0)
+        var score:Double = 0
+        score += weights[0] * max(d[CALORIES] as! Double - recommend[0], 0)
+        score += weights[1] * max(recommend[1] - (d[PROTEION] as! Double), 0)
+        score += weights[2] * max(d[FAT] as! Double - recommend[2], 0)
+        score += weights[3] * max(d[CARBS] as! Double - recommend[3], 0)
+        score += weights[4] * max(d[SUGAR] as! Double - recommend[4], 0)
+        score += weights[5] * max(d[CHOLESTEROL] as! Double - recommend[5], 0)
+        score += weights[6] * max(recommend[6] - (d[VC] as! Double), 0)
+        score += weights[7] * max(recommend[7] - (d[VE] as! Double), 0)
+        score += weights[8] * max(recommend[8] - (d[VB] as! Double), 0)
+        score += weights[9] * max(recommend[9] - (d[CA] as! Double), 0)
+        score += weights[10] * max(recommend[10] - (d[FE] as! Double), 0)
         final[d] = score
     }
     let sortedByValueDictionary = final.sorted { $0.1 < $1.1 }
@@ -164,13 +164,13 @@ func select_best(dishes:Array<PFObject>, recommend:Array<Float>, weights:Array<F
 
 //returen min score
 
-func get_weights(day:Int) -> Array<Float> {
-    let weights:[Float] = [1.0, 1.0, 1.0, 1.0, 1.0,1.0,1.0,1.0,1.0,1.0,1.0]
+func get_weights(day:Int) -> Array<Double> {
+    let weights:[Double] = [1.0, 1.0, 1.0, 1.0, 1.0,1.0,1.0,1.0,1.0,1.0,1.0]
     return weights
 }
 
-func cal_recommend(height:Float, weight:Float) -> Array<Float> {
-    let bmi:Float = weight / (height * height)
+func cal_recommend(height:Double, weight:Double) -> Array<Double> {
+    let bmi:Double = weight / (height * height)
     if bmi < 18.5{
         return [900, 5, 25, 15, 3, 30, 30, 30, 30, 30, 30]
     }else if bmi < 25{
@@ -184,7 +184,7 @@ func cal_recommend(height:Float, weight:Float) -> Array<Float> {
 
 
 func best_dishes(){
-    let recommended:[Float] = cal_recommend(height:178, weight:165)
+    let recommended:[Double] = cal_recommend(height:178, weight:165)
     let wei = get_weights(day:1)
     self.recipesArray = cal_score(dish:self.recipesArray, recommend:recommended, weights:wei)
 }
