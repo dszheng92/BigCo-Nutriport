@@ -118,16 +118,32 @@ func cal_score(dish:Array<PFObject>, recommend:Array<Double>, weights:Array<Doub
         else if d[RECIPES_CATEGORY] as! String? == "Dinner"{dinner.append(d)}
     }
     
-    result.append(select_best(dishes:snack, recommend:recommend, weights:weights))
-    result.append(select_best(dishes:breakfast, recommend:recommend, weights:weights))
-    result.append(select_best(dishes:lunch, recommend:recommend, weights:weights))
-    result.append(select_best(dishes:dinner, recommend:recommend, weights:weights))
+    snack = select_best(dishes:snack, recommend:recommend, weights:weights)
+    breakfast = select_best(dishes:breakfast, recommend:recommend, weights:weights)
+    lunch = select_best(dishes:lunch, recommend:recommend, weights:weights)
+    dinner = select_best(dishes:dinner, recommend:recommend, weights:weights)
+    
+    while !(snack.isEmpty && breakfast.isEmpty && lunch.isEmpty && dinner.isEmpty){
+        if !(snack.isEmpty){
+            result.append(snack.removeFirst())
+        }
+        if !(breakfast.isEmpty){
+            result.append(breakfast.removeFirst())
+        }
+        if !(lunch.isEmpty){
+            result.append(lunch.removeFirst())
+        }
+        if !(dinner.isEmpty){
+            result.append(dinner.removeFirst())
+        }
+        
+    }
     return result
 }
     
     //[calr, prot, fat, carb, sugar, choles, vc, ve, vb, ca, fe]
 
-func select_best(dishes:Array<PFObject>, recommend:Array<Double>, weights:Array<Double>) -> PFObject{
+func select_best(dishes:Array<PFObject>, recommend:Array<Double>, weights:Array<Double>) -> Array<PFObject>{
     var final = [PFObject: Double]()
     for d in dishes{
         var score:Double = 0
@@ -144,11 +160,15 @@ func select_best(dishes:Array<PFObject>, recommend:Array<Double>, weights:Array<
         score += weights[10] * max(recommend[10] - (d[FE] as! Double), 0)
         final[d] = score
     }
-    let sortedByValueDictionary = final.sorted { $0.1 < $1.1 }
-    let index = 0 // Int Value
-    return Array(sortedByValueDictionary)[index].key
-}
-
+    //var sortedByValueDictionary = final.sorted { $0.1 < $1.1}
+    let dictValDec = final.sorted(by: { $0.value > $1.value })
+    var res:Array<PFObject>  = []
+    for item in dictValDec {
+        res.append(item.key)
+    }
+    return res
+    }
+    
 //    let CALORIES = "calories_Kcal"
 //    let FAT = "fat_g"
 //    let CHOLESTEROL = "Cholesterol_mg"
