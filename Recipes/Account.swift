@@ -409,7 +409,8 @@ func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPat
     let recipePointer = likesClass[LIKES_RECIPE_LIKED] as! PFObject
     recipePointer.fetchIfNeededInBackground { (recipe, error) in
 
-        if recipePointer[RECIPES_IS_REPORTED] as! Bool == false {
+      //  if recipePointer[RECIPES_IS_REPORTED] as! Bool == false {
+        if true {
             let rdVC = self.storyboard?.instantiateViewController(withIdentifier: "RecipeDetails") as! RecipeDetails
             rdVC.recipeObj = recipePointer
             self.navigationController?.pushViewController(rdVC, animated: true)
